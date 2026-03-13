@@ -5,6 +5,33 @@
 
 A tool to seamlessly install and switch between multiple `istioctl` versions.
 
+## Install ivm
+
+```sh
+sudo ln -sf ~/ivm/ivm.sh /usr/local/bin/ivm
+```
+
+## Usage
+
+```sh
+ivm install <version>    # Install a version
+ivm use <version>        # Switch to a version
+ivm current              # Show active version
+ivm list                 # List installed versions
+ivm list-remote [n]      # List available versions (default: 20)
+ivm uninstall <version>  # Remove a version
+```
+
+## Add istioctl to PATH
+
+After running `ivm use <version>`, add `~/.ivm/bin` to your PATH:
+
+```sh
+echo 'export PATH="$HOME/.ivm/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+```
+
+Then use `istioctl` from anywhere.
+
 ## License
 
 See [LICENSE](./LICENSE).
