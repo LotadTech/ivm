@@ -9,7 +9,7 @@ _os()   { uname -s | tr '[:upper:]' '[:lower:]' | sed 's/darwin/osx/'; }
 _arch() { uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/'; }
 
 _current() {
-  [[ -L "$IVM_BIN" ]] && readlink "$IVM_BIN" | grep -oP '(?<=versions/)[^/]+' || echo "none"
+  [[ -L "$IVM_BIN" ]] && readlink "$IVM_BIN" | sed 's|.*/versions/\([^/]*\)/.*|\1|' || echo "none"
 }
 
 cmd_install() {
@@ -41,7 +41,7 @@ cmd_list() {
 
 cmd_list_remote() {
   curl -fsSL "https://api.github.com/repos/istio/istio/releases?per_page=${1:-20}" \
-    | grep '"tag_name"' | grep -oP '(?<="tag_name": ")[^"]+'
+    | grep '"tag_name"' | sed 's/.*"tag_name": "\([^"]*\)".*/\1/'
 }
 
 cmd_uninstall() {
