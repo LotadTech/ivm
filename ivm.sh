@@ -17,8 +17,12 @@ cmd_install() {
   [[ -f "$dest/istioctl" ]] && echo "$v already installed" && return
   mkdir -p "$dest"
   echo "Downloading istioctl $v..."
-  curl -fsSL "https://github.com/istio/istio/releases/download/${v}/istioctl-${v}-$(_os)-$(_arch).tar.gz" \
-    | tar -xz -C "$dest"
+  if ! curl -fsSL "https://github.com/istio/istio/releases/download/${v}/istioctl-${v}-$(_os)-$(_arch).tar.gz" \
+    | tar -xz -C "$dest"; then
+    rm -rf "$dest"
+    echo "Failed to install $v" >&2
+    exit 1
+  fi
   chmod +x "$dest/istioctl"
   echo "Installed $v"
 }

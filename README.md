@@ -24,10 +24,16 @@ ivm uninstall <version>  # Remove a version
 
 ## Add istioctl to PATH
 
-After running `ivm use <version>`, add `~/.ivm/bin` to your PATH:
+After running `ivm use <version>`, add `~/.ivm/bin` to your PATH.
 
+**bash:**
 ```sh
 echo 'export PATH="$HOME/.ivm/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+```
+
+**zsh:**
+```sh
+echo 'export PATH="$HOME/.ivm/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 ```
 
 Then use `istioctl` from anywhere.
